@@ -7,7 +7,7 @@ import { createNotification } from '../services/notifications.js';
 const router = Router();
 
 router.post('/register', (req, res) => {
-  const { name, email, password, phone, city, pincode, medical_needs, max_budget } = req.body;
+  const { name, email, password, phone, city, pincode, medical_needs, max_budget, role, license_number, org_type, description } = req.body;
   if (!name || !email || !password) {
     return res.status(400).json({ error: 'Name, email, and password are required' });
   }
@@ -15,11 +15,17 @@ router.post('/register', (req, res) => {
     return res.status(409).json({ error: 'Email already registered' });
   }
 
+  const userRole = role === 'ngo' ? 'ngo' : 'patient';
+  const isVerified = userRole === 'patient'; // Patient is verified by default, NGO needs admin approval
+
   const hash = bcrypt.hashSync(password, 10);
   const result = db.insert('users', {
     name, email, password: hash, phone: phone || null, city: city || null,
     pincode: pincode || null, latitude: null, longitude: null,
-    medical_needs: JSON.stringify(medical_needs || []), max_budget: max_budget || 0, role: 'patient',
+    medical_needs: JSON.stringify(medical_needs || []), max_budget: max_budget || 0,
+    role: userRole, verified: isVerified,
+    license_number: license_number || null, org_type: org_type || null,
+    description: description || null
   });
 
   const user = db.find('users', u => u.id === result.lastInsertRowid);

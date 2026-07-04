@@ -24,11 +24,15 @@ export default function Navbar() {
     setMenuOpen(false);
   };
 
-  const navLinks = [
+  const navLinks = !user || user.role === 'patient' ? [
     { to: '/camps', label: 'Find Camps' },
     { to: '/schemes', label: 'Govt Schemes' },
     { to: '/ai-search', label: 'AI Search', icon: Sparkles },
     ...(user ? [{ to: '/recommendations', label: 'For You' }] : []),
+  ] : user.role === 'ngo' ? [
+    { to: '/dashboard', label: 'NGO Console' }
+  ] : [
+    { to: '/admin', label: 'Admin Console' }
   ];
 
   return (

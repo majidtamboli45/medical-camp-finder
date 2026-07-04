@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import db from '../db/database.js';
 import { authMiddleware } from '../middleware/auth.js';
-import { notifyBookingConfirmed } from '../services/notifications.js';
+import { notifyBookingConfirmed, createNotification } from '../services/notifications.js';
 
 const router = Router();
 
@@ -49,14 +49,24 @@ router.post('/', authMiddleware, (req, res) => {
   );
   if (existing) return res.status(409).json({ error: 'You already have a booking for this camp on this date' });
 
+  // NGO/Hospital camps require manual acceptance and start as 'pending'
+  const isNgoCamp = !!camp.user_id || camp.source === 'ngo_registration';
+  const initialStatus = isNgoCamp ? 'pending' : 'confirmed';
+
   const result = db.insert('bookings', {
     user_id: req.user.id, camp_id: +camp_id, slot_date, slot_time, patient_name,
     patient_age: patient_age || null, patient_gender: patient_gender || null,
-    medical_concern: medical_concern || null, status: 'confirmed',
+    medical_concern: medical_concern || null, status: initialStatus,
   });
 
-  db.update('camps', camp.id, { booked_slots: camp.booked_slots + 1 });
-  notifyBookingConfirmed(req.user.id, camp.title, slot_date, slot_time);
+  if (initialStatus === 'confirmed') {
+    db.update('camps', camp.id, { booked_slots: camp.booked_slots + 1 });
+    notifyBookingConfirmed(req.user.id, camp.title, slot_date, slot_time);
+  } else {
+    if (camp.user_id) {
+      createNotification(camp.user_id, 'New Booking Request', `You have a new slot booking request for ${camp.title} from ${patient_name}.`, 'info');
+    }
+  }
 
   const booking = db.find('bookings', b => b.id === result.lastInsertRowid);
   res.status(201).json(booking);
@@ -72,6 +82,7 @@ router.get('/my', authMiddleware, (req, res) => {
         specialty: camp?.specialty, organizer: camp?.organizer,
         contact_phone: camp?.contact_phone, transport_available: camp?.transport_available,
         transport_details: camp?.transport_details,
+        latitude: camp?.latitude, longitude: camp?.longitude,
       };
     })
     .sort((a, b) => new Date(b.slot_date) - new Date(a.slot_date));

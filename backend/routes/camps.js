@@ -92,6 +92,70 @@ router.get('/ai/recommendations', authMiddleware, (req, res) => {
   res.json(recommendations);
 });
 
+router.post('/analyze-prescription', (req, res) => {
+  const { text, filename } = req.body;
+  
+  // Combine text and filename for keyword search
+  const contentToAnalyze = `${text || ''} ${filename || ''}`.toLowerCase();
+  
+  const testMapping = {
+    heart: ['ECG', '2D Echo', 'Cardiologist Consultation'],
+    eye: ['Vision Test', 'Cataract Screening', 'Glaucoma Check'],
+    dental: ['Dental Checkup', 'Scaling', 'Basic Filling'],
+    diabetes: ['Blood Sugar Test', 'HbA1c', 'BP Check'],
+    cancer: ['Oral Cancer Screening', 'Breast Exam', 'Cervical Screening'],
+    women: ['Gynec Checkup', 'Pap Smear', 'Breast Screening'],
+    child: ['Vaccination', 'Growth Monitoring', 'Nutrition Check'],
+    bone: ['Bone Density Test', 'Joint Exam', 'Arthritis Screening'],
+    kidney: ['Kidney Function Test', 'Urine Analysis'],
+    general: ['General Checkup', 'BP Check', 'BMI Screening'],
+    blood: ['CBC', 'Lipid Profile', 'Blood Sugar Test']
+  };
+
+  const identifiedSpecialties = [];
+  const recommendedTests = [];
+
+  // Match keywords
+  const MEDICAL_SYNONYMS = {
+    heart: ['cardiology', 'cardiac', 'heart', 'ecg', 'echo', 'chest pain', 'cardiologist'],
+    eye: ['ophthalmology', 'eye', 'vision', 'cataract', 'glaucoma', 'blind', 'spectacles'],
+    dental: ['dental', 'dentistry', 'teeth', 'oral', 'cavity', 'scaling', 'toothache'],
+    diabetes: ['diabetes', 'diabetic', 'blood sugar', 'glucose', 'insulin', 'hba1c'],
+    cancer: ['cancer', 'oncology', 'tumor', 'chemotherapy', 'biopsy', 'mammogram'],
+    women: ['gynecology', 'women', 'maternal', 'prenatal', 'obstetrics', 'pregnancy', 'pap smear'],
+    child: ['pediatric', 'children', 'child', 'vaccination', 'immunization', 'growth'],
+    bone: ['orthopedic', 'bone', 'joint', 'fracture', 'arthritis', 'osteo', 'calcium'],
+    kidney: ['nephrology', 'kidney', 'dialysis', 'creatinine', 'urine'],
+    blood: ['blood test', 'pathology', 'lab', 'diagnostic', 'cbc', 'lipid', 'cholesterol', 'hemoglobin']
+  };
+
+  for (const [specialty, terms] of Object.entries(MEDICAL_SYNONYMS)) {
+    if (terms.some(term => contentToAnalyze.includes(term))) {
+      identifiedSpecialties.push(specialty);
+      testMapping[specialty].forEach(test => {
+        if (!recommendedTests.includes(test)) recommendedTests.push(test);
+      });
+    }
+  }
+
+  // Fallback if no keywords matched
+  if (identifiedSpecialties.length === 0) {
+    identifiedSpecialties.push('general', 'blood');
+    testMapping.general.forEach(t => recommendedTests.push(t));
+    testMapping.blood.forEach(t => {
+      if (!recommendedTests.includes(t)) recommendedTests.push(t);
+    });
+  }
+
+  res.json({
+    success: true,
+    filename: filename || 'prescription.pdf',
+    identified_specialties: identifiedSpecialties,
+    recommended_tests: recommendedTests,
+    summary: `Prescription NLP analysis detected indications for: ${identifiedSpecialties.join(', ')}. Recommended screening tests: ${recommendedTests.join(', ')}.`
+  });
+});
+
 router.get('/:id', (req, res) => {
   const camp = db.find('camps', c => c.id === +req.params.id);
   if (!camp) return res.status(404).json({ error: 'Camp not found' });

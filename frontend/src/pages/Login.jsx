@@ -17,6 +17,7 @@ export default function Login() {
     setLoading(true);
     try {
       const user = await login(email, password);
+      // Admin goes directly to admin page, others to the unified dashboard
       navigate(user.role === 'admin' ? '/admin' : '/dashboard');
     } catch (err) {
       setError(err.message);
@@ -57,9 +58,10 @@ export default function Login() {
         </p>
 
         <div className="mt-6 p-3 bg-gray-50 rounded-lg text-xs text-gray-500">
-          <p className="font-medium mb-1">Demo Accounts:</p>
-          <p>Patient: rahul@email.com / patient123</p>
-          <p>Admin: admin@medcamp.com / admin123</p>
+          <p className="font-semibold mb-1">Demo Accounts:</p>
+          <p><span className="font-medium text-gray-700">Patient:</span> rahul@email.com / patient123</p>
+          <p><span className="font-medium text-gray-700">NGO:</span> Create one in registration or use existing</p>
+          <p><span className="font-medium text-gray-700">Admin:</span> admin@medcamp.com / admin123</p>
         </div>
       </div>
     </div>

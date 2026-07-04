@@ -1,10 +1,10 @@
 {
   "_counters": {
-    "users": 5,
-    "camps": 12,
+    "users": 6,
+    "camps": 15,
     "schemes": 8,
-    "bookings": 0,
-    "notifications": 1
+    "bookings": 2,
+    "notifications": 12
   },
   "users": [
     {
@@ -30,12 +30,13 @@
       "phone": "9876543211",
       "city": "Mumbai",
       "pincode": "400050",
-      "latitude": 19.0596,
-      "longitude": 72.8295,
-      "medical_needs": "[\"diabetes\",\"general\"]",
+      "latitude": null,
+      "longitude": null,
+      "medical_needs": "[\"diabetes\",\"general\",\"heart\"]",
       "max_budget": 500,
       "role": "patient",
-      "created_at": "2026-07-03T15:23:45.400Z"
+      "created_at": "2026-07-03T15:23:45.400Z",
+      "verified": true
     },
     {
       "id": 3,
@@ -50,7 +51,8 @@
       "medical_needs": "[\"eye\",\"women\"]",
       "max_budget": 0,
       "role": "patient",
-      "created_at": "2026-07-03T15:23:45.400Z"
+      "created_at": "2026-07-03T15:23:45.400Z",
+      "verified": true
     },
     {
       "id": 4,
@@ -65,7 +67,8 @@
       "medical_needs": "[\"heart\",\"blood\"]",
       "max_budget": 1000,
       "role": "patient",
-      "created_at": "2026-07-03T15:23:45.400Z"
+      "created_at": "2026-07-03T15:23:45.400Z",
+      "verified": true
     },
     {
       "name": "Saniya Maner",
@@ -80,7 +83,27 @@
       "max_budget": 499,
       "role": "patient",
       "id": 5,
-      "created_at": "2026-07-03T15:46:40.503Z"
+      "created_at": "2026-07-03T15:46:40.503Z",
+      "verified": true
+    },
+    {
+      "name": "Friendship ",
+      "email": "aspirantu72@gmail.com",
+      "password": "$2a$10$lSfhJWeMMTzxmlCptq9sq.CBreyQGZw2EvGDO8B1I6FaawrhOy6p2",
+      "phone": "9881646686",
+      "city": "Pune",
+      "pincode": "412102",
+      "latitude": null,
+      "longitude": null,
+      "medical_needs": "[]",
+      "max_budget": 0,
+      "role": "ngo",
+      "verified": true,
+      "license_number": "REG-213-615",
+      "org_type": "NGO",
+      "description": "HEALTH CHECK UP CAMP",
+      "id": 6,
+      "created_at": "2026-07-04T08:08:46.920Z"
     }
   ],
   "camps": [
@@ -130,7 +153,7 @@
       "is_free": 1,
       "cost": 0,
       "total_slots": 150,
-      "booked_slots": 30,
+      "booked_slots": 31,
       "transport_available": 0,
       "transport_details": null,
       "contact_phone": "022-26567890",
@@ -407,6 +430,90 @@
       "source": "government_program",
       "status": "active",
       "created_at": "2026-07-03T15:23:45.401Z"
+    },
+    {
+      "title": "Free Cardiology Camp - Apollo Hearts",
+      "description": "Get free ECG and consultation with top cardiologists this Sunday at Central Mall.",
+      "organizer": "Apollo Hospital",
+      "organizer_type": "Hospital",
+      "specialty": "Cardiology",
+      "services": "[\"ECG\",\"Blood Pressure Check\",\"Cardiologist Consultation\"]",
+      "city": "Mumbai",
+      "address": "Central Mall Ground Floor, Bandra West",
+      "pincode": "400050",
+      "latitude": null,
+      "longitude": null,
+      "camp_date": "2026-07-26",
+      "start_time": "10:00",
+      "end_time": "16:00",
+      "is_free": 1,
+      "cost": 0,
+      "total_slots": 120,
+      "booked_slots": 1,
+      "transport_available": 1,
+      "transport_details": "Free pick up from Bandra Local Station",
+      "contact_phone": "9820012345",
+      "source": "social_media",
+      "image_url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&auto=format&fit=crop",
+      "status": "active",
+      "id": 13,
+      "created_at": "2026-07-04T08:10:54.887Z"
+    },
+    {
+      "title": "Child Vaccination & Nutrition Drive",
+      "description": "Free immunization and nutrition supplements distribution for infants and toddlers.",
+      "organizer": "Care Foundation",
+      "organizer_type": "NGO",
+      "specialty": "Pediatric",
+      "services": "[\"Vaccination\",\"Growth Monitoring\",\"Nutrition Check\"]",
+      "city": "Bangalore",
+      "address": "Whitefield Public Park Hall",
+      "pincode": "560066",
+      "latitude": null,
+      "longitude": null,
+      "camp_date": "2026-08-09",
+      "start_time": "08:30",
+      "end_time": "13:00",
+      "is_free": 1,
+      "cost": 0,
+      "total_slots": 150,
+      "booked_slots": 0,
+      "transport_available": 1,
+      "transport_details": "Shuttle van from Whitefield Bus Stand every 30 minutes",
+      "contact_phone": "9900055443",
+      "source": "government_program",
+      "image_url": "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=500&auto=format&fit=crop",
+      "status": "active",
+      "id": 14,
+      "created_at": "2026-07-04T08:10:55.866Z"
+    },
+    {
+      "title": "Vision & Cataract Screening Mela",
+      "description": "Free cataract screening and distribution of free glasses for senior citizens.",
+      "organizer": "Swasthya NGO",
+      "organizer_type": "NGO",
+      "specialty": "Ophthalmology",
+      "services": "[\"Vision Test\",\"Cataract Screening\",\"Free Glasses\"]",
+      "city": "Delhi",
+      "address": "Sunder Nagar Community Hall",
+      "pincode": "110001",
+      "latitude": null,
+      "longitude": null,
+      "camp_date": "2026-08-02",
+      "start_time": "09:00",
+      "end_time": "15:00",
+      "is_free": 1,
+      "cost": 0,
+      "total_slots": 100,
+      "booked_slots": 0,
+      "transport_available": 0,
+      "transport_details": null,
+      "contact_phone": "9811098765",
+      "source": "hospital_advertisement",
+      "image_url": "https://images.unsplash.com/photo-1579684389782-64d84b5e902a?w=500&auto=format&fit=crop",
+      "status": "active",
+      "id": 15,
+      "created_at": "2026-07-04T08:10:56.557Z"
     }
   ],
   "schemes": [
@@ -523,7 +630,34 @@
       "created_at": "2026-07-03T15:23:45.401Z"
     }
   ],
-  "bookings": [],
+  "bookings": [
+    {
+      "user_id": 2,
+      "camp_id": 2,
+      "slot_date": "2026-07-20",
+      "slot_time": "10:30",
+      "patient_name": "Rahul Sharma",
+      "patient_age": "45",
+      "patient_gender": "Male",
+      "medical_concern": null,
+      "status": "confirmed",
+      "id": 1,
+      "created_at": "2026-07-04T08:03:55.987Z"
+    },
+    {
+      "user_id": 2,
+      "camp_id": 13,
+      "slot_date": "2026-07-26",
+      "slot_time": "14:30",
+      "patient_name": "Rahul Sharma",
+      "patient_age": "45",
+      "patient_gender": "Male",
+      "medical_concern": null,
+      "status": "confirmed",
+      "id": 2,
+      "created_at": "2026-07-04T08:21:42.729Z"
+    }
+  ],
   "notifications": [
     {
       "user_id": 5,
@@ -533,6 +667,105 @@
       "is_read": 0,
       "id": 1,
       "created_at": "2026-07-03T15:46:40.509Z"
+    },
+    {
+      "user_id": 2,
+      "title": "Booking Confirmed",
+      "message": "Your slot at \"Diabetes & Blood Pressure Screening Camp\" on 2026-07-20 at 10:30 is confirmed.",
+      "type": "success",
+      "is_read": 1,
+      "id": 2,
+      "created_at": "2026-07-04T08:03:55.988Z"
+    },
+    {
+      "user_id": 6,
+      "title": "Welcome!",
+      "message": "Welcome to Medical Camp Finder. Explore camps and book your health checkups.",
+      "type": "success",
+      "is_read": 0,
+      "id": 3,
+      "created_at": "2026-07-04T08:08:46.924Z"
+    },
+    {
+      "user_id": 6,
+      "title": "Account Verified",
+      "message": "Your account details have been verified by the administrator.",
+      "type": "success",
+      "is_read": 0,
+      "id": 4,
+      "created_at": "2026-07-04T08:10:47.606Z"
+    },
+    {
+      "user_id": 2,
+      "title": "New Camp Near You",
+      "message": "A new medical camp \"Free Cardiology Camp - Apollo Hearts\" has been added in Mumbai. Check it out!",
+      "type": "info",
+      "is_read": 1,
+      "id": 5,
+      "created_at": "2026-07-04T08:10:54.888Z"
+    },
+    {
+      "user_id": 4,
+      "title": "New Camp Near You",
+      "message": "A new medical camp \"Child Vaccination & Nutrition Drive\" has been added in Bangalore. Check it out!",
+      "type": "info",
+      "is_read": 0,
+      "id": 6,
+      "created_at": "2026-07-04T08:10:55.868Z"
+    },
+    {
+      "user_id": 3,
+      "title": "New Camp Near You",
+      "message": "A new medical camp \"Vision & Cataract Screening Mela\" has been added in Delhi. Check it out!",
+      "type": "info",
+      "is_read": 0,
+      "id": 7,
+      "created_at": "2026-07-04T08:10:56.558Z"
+    },
+    {
+      "user_id": 2,
+      "title": "Account Verified",
+      "message": "Your account details have been verified by the administrator.",
+      "type": "success",
+      "is_read": 1,
+      "id": 8,
+      "created_at": "2026-07-04T08:11:17.981Z"
+    },
+    {
+      "user_id": 3,
+      "title": "Account Verified",
+      "message": "Your account details have been verified by the administrator.",
+      "type": "success",
+      "is_read": 0,
+      "id": 9,
+      "created_at": "2026-07-04T08:11:19.677Z"
+    },
+    {
+      "user_id": 4,
+      "title": "Account Verified",
+      "message": "Your account details have been verified by the administrator.",
+      "type": "success",
+      "is_read": 0,
+      "id": 10,
+      "created_at": "2026-07-04T08:11:20.309Z"
+    },
+    {
+      "user_id": 5,
+      "title": "Account Verified",
+      "message": "Your account details have been verified by the administrator.",
+      "type": "success",
+      "is_read": 0,
+      "id": 11,
+      "created_at": "2026-07-04T08:11:21.019Z"
+    },
+    {
+      "user_id": 2,
+      "title": "Booking Confirmed",
+      "message": "Your slot at \"Free Cardiology Camp - Apollo Hearts\" on 2026-07-26 at 14:30 is confirmed.",
+      "type": "success",
+      "is_read": 1,
+      "id": 12,
+      "created_at": "2026-07-04T08:21:42.731Z"
     }
   ]
 }
