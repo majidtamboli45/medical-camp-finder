@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors({
   origin: [
     "http://localhost:5173",
-    "https:/medical-camp-finder-vqwn.vercel.app"
+    "https://medical-camp-finder-iogd.vercel.app"
   ],
   credentials: true
 }));
